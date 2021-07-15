@@ -7,7 +7,8 @@ export default class TranslateForm extends Component {
         super();
         this.state={
             textToTranslate:null,
-            languages:[]
+            languages:[],
+            selectedLanguage:null
         }
     }
 
@@ -16,9 +17,7 @@ export default class TranslateForm extends Component {
         .then(languages=>
             {this.setState({languages:languages})
             // console.log(this.state.languages)
-
             }
-
         )
     }
 
@@ -35,11 +34,14 @@ export default class TranslateForm extends Component {
                 
                 <label htmlFor="language">Choose a language</label>
                 <select name="language">
-                    {/* { this.state.languages.map( (language) => {
-                        
-                            <option key={language.language}>{language.language}</option>
-                        
-                    }) } */}
+                    { this.state.languages.map( (language) => {
+                            return(
+                                <option key={language.language} value={language.language}> 
+                                    {language.language}
+                                </option>
+                            )
+                        })
+                    }
                 </select>
 
                 <input 
