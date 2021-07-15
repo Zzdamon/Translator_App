@@ -16,3 +16,20 @@ export const getListOfLanguages = () => {
     ).then( (data) => data.json())
 }
 
+export const translateText = ( text, language ) => {
+    
+    const formData = new FormData();
+    formData.append("auth_key",key);
+    formData.append("type","target");
+    formData.append("text",text);
+    formData.append("target_lang",language);
+        
+   return fetch(`${DeepL}translate `, {
+    method: 'POST', // or 'PUT',
+    // mode: 'no-cors',
+    
+    body:  formData
+    }
+    ).then( (data) => data.json())
+}
+

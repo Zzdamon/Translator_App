@@ -8,14 +8,15 @@ export default class TranslateForm extends Component {
         this.state={
             textToTranslate:null,
             languages:[],
-            selectedLanguage:null
+            selectedLanguage:null,
+            translatedText:null
         }
     }
 
     componentDidMount(){
         DeepL.getListOfLanguages()
         .then(languages=>
-            {this.setState({languages:languages})
+            {this.setState({languages:languages, selectedLanguage:languages[0].language})
             // console.log(this.state.languages)
             }
         )
@@ -25,15 +26,22 @@ export default class TranslateForm extends Component {
         return (
             <form className="translate-form"
                 onSubmit={(event) =>
-                { event.preventDefault(); } } >
+                { 
+                    event.preventDefault(); 
+                    DeepL.translateText(this.state.textToTranslate,this.state.selectedLanguage)
+                    .then( translatedText => this.setState({translatedText:translatedText.translations[0].text}) )
+                    console.log(this.state);
+                } } >
 
                 <textarea id="textToTranslate" name="textToTranslate" rows="4" cols="50"
                     onChange={(event)=>this.changeHandler(event)}
                     placeholder="Type here what you want to translate..." >
                 </textarea>     
                 
-                <label htmlFor="language">Choose a language</label>
-                <select name="language">
+                <label htmlFor="selecteLanguage">Choose a language</label>
+                <select name="selectedLanguage" 
+                placeholder="Select..."
+                onChange = { (event) => this.changeHandler(event) } >
                     { this.state.languages.map( (language) => {
                             return(
                                 <option key={language.language} value={language.language}> 
@@ -47,6 +55,12 @@ export default class TranslateForm extends Component {
                 <input 
                     className="btn btn-secondary m-1 mt-2"
                     type="submit" value="Translate"/>
+
+                { this.state.translatedText
+                  ? <textarea name="translatedText" id="translatedText" cols="30" rows="10" readOnly="true"
+                   value={this.state.translatedText}></textarea>
+                 :null
+                }
 
             </form>
         )
