@@ -1,16 +1,25 @@
 import React, { Component } from 'react'
+import * as DeepL from '../APIs/DeepL';
 
 export default class TranslateForm extends Component {
         
     constructor(){
         super();
         this.state={
-            textToTranslate:null
+            textToTranslate:null,
+            languages:[]
         }
     }
 
     componentDidMount(){
-        
+        DeepL.getListOfLanguages()
+        .then(languages=>
+            {this.setState({languages:languages})
+            // console.log(this.state.languages)
+
+            }
+
+        )
     }
 
     render() {
@@ -26,7 +35,11 @@ export default class TranslateForm extends Component {
                 
                 <label htmlFor="language">Choose a language</label>
                 <select name="language">
-
+                    {/* { this.state.languages.map( (language) => {
+                        
+                            <option key={language.language}>{language.language}</option>
+                        
+                    }) } */}
                 </select>
 
                 <input 
@@ -39,7 +52,7 @@ export default class TranslateForm extends Component {
     
     changeHandler(event) {
         this.setState({[event.target.name]: event.target.value});
-        console.log(this.state.textToTranslate)
+        console.log(this.state)
     }
 }
 
