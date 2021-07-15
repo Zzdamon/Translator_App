@@ -9,6 +9,10 @@ export default class TranslateForm extends Component {
         }
     }
 
+    componentDidMount(){
+        
+    }
+
     render() {
         return (
             <form className="translate-form"
