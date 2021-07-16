@@ -7,13 +7,12 @@ export const getListOfLanguages = () => {
     formData.append("auth_key",key);
     formData.append("type","target");
     
-   return fetch(`${DeepL}languages`, {
-    method: 'POST', // or 'PUT',
-    // mode: 'no-cors',
-    
-    body:  formData
-    }
-    ).then( (data) => data.json())
+   return fetch(`${DeepL}languages`, 
+   {
+        method: 'POST', 
+        body:  formData
+    })
+    .then( (data) => data.json() )
 }
 
 export const translateText = ( text, language ) => {
@@ -25,12 +24,11 @@ export const translateText = ( text, language ) => {
     formData.append("target_lang",language);
     formData.append("source_lang","EN");
         
-   return fetch(`${DeepL}translate `, {
-    method: 'POST', // or 'PUT',
-    // mode: 'no-cors',
-    
-    body:  formData
-    }
-    ).then( (data) => data.json())
+   return fetch( `${DeepL}translate`,
+    {
+        method: 'POST',     
+        body:  formData
+    })
+    .then( (data) => data.json() )
 }
 
