@@ -6,7 +6,7 @@ export default class TranslateForm extends Component {
     constructor(){
         super();
         this.state={
-            textToTranslate:null,
+            textToTranslate:'',
             languages:[],
             selectedLanguage:null,
             translatedText:null
@@ -26,12 +26,7 @@ export default class TranslateForm extends Component {
         return (
             <form className="translate-form"
                 onSubmit={(event) =>
-                { 
-                    event.preventDefault(); 
-                    DeepL.translateText(this.state.textToTranslate,this.state.selectedLanguage)
-                    .then( translatedText => this.setState({translatedText:translatedText.translations[0].text}) )
-                    console.log(this.state);
-                } } >
+               this.submitEvent(event) } >
 
                 <textarea id="textToTranslate" name="textToTranslate" rows="4" cols="50"
                     onChange={(event)=>this.changeHandler(event)}
@@ -66,6 +61,15 @@ export default class TranslateForm extends Component {
         )
     }
     
+    submitEvent(event){
+
+        event.preventDefault(); 
+        DeepL.translateText(this.state.textToTranslate,this.state.selectedLanguage)
+            .then( translatedText => this.setState({translatedText:translatedText.translations[0].text}) )
+        console.log(this.state);
+        
+    }
+
     changeHandler(event) {
         this.setState({[event.target.name]: event.target.value});
         console.log(this.state)

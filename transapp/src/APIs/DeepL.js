@@ -23,6 +23,7 @@ export const translateText = ( text, language ) => {
     formData.append("type","target");
     formData.append("text",text);
     formData.append("target_lang",language);
+    formData.append("source_lang","EN");
         
    return fetch(`${DeepL}translate `, {
     method: 'POST', // or 'PUT',
