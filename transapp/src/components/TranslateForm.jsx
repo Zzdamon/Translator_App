@@ -5,7 +5,7 @@ export default class TranslateForm extends Component {
         
     constructor(){
         super();
-        this.state={
+        this.state = {
             textToTranslate:'',
             languages:[],
             selectedLanguage:null,
@@ -22,38 +22,43 @@ export default class TranslateForm extends Component {
 
     render() {
         return (
-            <form className="translate-form container d-flex flex-column align-items-center  m-5 "
+            <form className = "translate-form container d-flex flex-column align-items-center  m-5 "
                 onSubmit={(event) => this.submitEventHandler(event) } >
                
-                <label htmlFor="textToTranslate"
-                    className="h6 mx-2"
-                >Write any english text here and translate it into the language you want</label>
+                <label htmlFor = "textToTranslate"
+                    className = "h6 mx-2"
+                >Write any english text here and translate it into the language you want
+                </label>
                
-                <textarea id="textToTranslate" name="textToTranslate" rows="4" cols="50"
-                    onChange={(event)=>this.changeHandler(event)}
-                    placeholder="Type here what you want to translate..." >
+                <textarea id = "textToTranslate" name = "textToTranslate" rows = "4" cols = "50"
+                    onChange = { (event) => this.changeHandler(event) }
+                    placeholder = "Type here what you want to translate..." >
                 </textarea>     
                 
-                <div className="d-flex mt-4 mb-2 justify-content-between">
-                    <label className="h6 mx-2" htmlFor="selectedLanguage">Choose a language:</label>
-                    <select name="selectedLanguage" 
-                        onChange = { (event) => this.changeHandler(event) } >    
+                <div className = "d-flex mt-4 mb-2 justify-content-between">
+                    <label className = "h6 mx-2" 
+                        htmlFor = "selectedLanguage"
+                    >Choose a language:
+                    </label>
                     
-                        { this.state.languages.map( (language) => {
-                          
+                    <select name = "selectedLanguage" 
+                        onChange = { (event) => this.changeHandler(event) } 
+                        >{ this.state.languages.map( (language) => {      
                             return (
-                                <option key={language.language} value={language.language}> 
-                                    {language.name}
+                                <option key = {language.language} 
+                                value = {language.language}
+                                >{language.name}
                                 </option>
                             )
-                        })
-                    }
+                            })
+                        }
                     </select>
                 </div>
 
                 <input 
-                    className="btn btn-secondary  my-3"
-                    type="submit" value="Translate"/>
+                    className = "btn btn-secondary my-3"
+                    type = "submit" 
+                    value = "Translate"/>
 
                 { this.state.translatedText
                   ? <div className="d-flex flex-column justify-content-center">
